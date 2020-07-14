@@ -10,3 +10,10 @@ hydra -t 1 -l admin -P [path to password.lst] -vV [IPaddress] ftp
 #check for joe accounts by adding modifier -e s
 
 #to write found login+pass combinations to fiel, add modifier -0 [fileanme]
+
+# example brute force on a login page
+hydra -l admin -P [path to password.lst] [IPaddress] http-post-form "/login.php:user=kate&pwd=^PASS^:F=Password" -t 10
+--> http-post-form = the type of attack, when the page has SSL put in https-post-form
+--> user=kate&pwd=^PASS^ = POST parameters, you can intercept the POST with Burp to check
+--> ^PASS^ = This will tell Hydra where to fill the entry of the wordlist
+--> -t = # of threads
